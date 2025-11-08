@@ -1,0 +1,42 @@
+services:
+  # Backend Spring Boot
+  - type: web
+    name: yamo-backend
+    env: java
+    region: frankfurt
+    plan: free
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -Dserver.port=$PORT -jar target/*.jar
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        fromDatabase:
+          name: yamo-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: yamo-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: yamo-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: yamo-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRATION
+        value: 86400000
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://yamo-client.onrender.com,https://yamo-admin.onrender.com,https://yamo-driver.onrender.com,https://yamo-operator.onrender.com
+
+databases:
+  - name: yamo-db
+    databaseName: yamo_db
+    user: yamo_user
+    plan: free
+    region: frankfurt

@@ -13,7 +13,7 @@ import java.util.Map;
 @Service
 public class GoogleMapsServiceImpl implements GoogleMapsService {
 
-    @Value("${google.maps.api.key}")
+    @Value("${google.maps.api-key:}")
     private String apiKey;
 
     private final RestTemplate restTemplate = new RestTemplate();

@@ -36,6 +36,7 @@ public class SecurityConfig {
                         // Endpoints publics
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/public/**").permitAll()
+                        .requestMatchers("/", "/actuator/health", "/public/**").permitAll()
                         
                         // Endpoints Admin
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")

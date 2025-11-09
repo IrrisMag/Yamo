@@ -27,6 +27,7 @@ spring:
         jdbc:
           time_zone: UTC
     show-sql: false
+    open-in-view: false
 
   # Flyway Migration
   flyway:
@@ -38,6 +39,7 @@ spring:
 # Server Configuration
 server:
   port: ${PORT:8080}
+  address: 0.0.0.0
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain

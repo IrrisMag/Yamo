@@ -20,8 +20,9 @@ WORKDIR /app
 # Copy the fat jar from build stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose app port
-EXPOSE 8080
+# Expose app port (Render uses 10000)
+EXPOSE 8090
 
-# Run the app with container-aware JVM options
-ENTRYPOINT ["java","-XX:+UseContainerSupport","-XX:MaxRAMPercentage=75.0","-jar","app.jar"]
+# Run the app with prod profile and container-aware JVM options
+ENTRYPOINT ["java","-XX:+UseContainerSupport","-XX:MaxRAMPercentage=75.0","-Dspring.profiles.active=prod","-jar","app.jar"]
+CMD ["java", "-jar", "app.jar"]
